@@ -25,7 +25,7 @@ app = FastAPI(title="AI Chatbot API", description="API for interacting with a Ge
 
 # --- CORS Configuration ---
 origins = [
-    "http://localhost:5173",  # Development frontend
+    "https://basic-chatbot-xi.vercel.app/",  # Development frontend
     # Add your deployed frontend URL here (e.g., "https://your-deployed-app.com")
 ]
 
