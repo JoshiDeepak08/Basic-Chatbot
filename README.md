@@ -2,6 +2,7 @@
 
 A minimal, fast, full-stack AI chatbot built with **FastAPI**, **Google Gemini (2.0 Flash)**, and a **React + Vite** frontend.
 The backend exposes a simple `/chat` API that streams user prompts to Gemini and returns AI-generated responses.
+link- https://basic-chatbot-xi.vercel.app/
 
 This project is ideal for:
 
