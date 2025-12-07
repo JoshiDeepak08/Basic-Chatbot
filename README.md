@@ -1,146 +1,136 @@
-#  **Basic Chatbot (Frontend-Only Chat UI Demo)**
+#  **Basic Chatbot (Full-Stack Chatbot Boilerplate — FastAPI + JavaScript UI)**
 
-A simple, lightweight chatbot UI built with **HTML, CSS, and JavaScript**, demonstrating message handling, user interaction, and a clean chat-style interface.
-Perfect as a starter UI for integrating APIs, LLMs, or backend chatbot systems.
+A minimal full-stack chatbot starter template with a **FastAPI backend** and a **vanilla JavaScript frontend**.
+The backend exposes a simple `/chat` API, and the frontend provides a clean chat interface for interacting with the bot. Lightweight, extendable, and perfect for integrating future LLMs, RAG systems, or NLP pipelines.
 
- **Live Demo:** [https://basic-chatbot-xi.vercel.app](https://basic-chatbot-xi.vercel.app)
+**Live Demo:** [https://basic-chatbot-xi.vercel.app](https://basic-chatbot-xi.vercel.app)
 
- 
-
----
-
-# **Table of Contents**
-
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Folder Structure](#folder-structure)
-4. [How to Run Locally](#how-to-run-locally)
-5. [Architecture & Design Decisions](#architecture--design-decisions)
-6. [Approach](#approach)
-7. [Pipeline / Flow](#pipeline--flow)
-8. [Challenges & Trade-Offs](#challenges--trade-offs)
+<img width="1359" height="410" alt="image" src="https://github.com/user-attachments/assets/e494fad3-42a1-464f-b9d7-c17da63a83a7" />
 
 ---
 
-#  **Overview**
-
-This project is a **basic chatbot UI** built using:
-
-* **HTML**
-* **CSS**
-* **JavaScript**
-
-It provides a clean, interactive chat interface where users can type messages and receive pre-defined bot replies.
-This project can act as a **starter template** for integrating:
-
-* LLM APIs (OpenAI/Groq/Gemini)
-* Backend chat services
-* RAG pipelines
-* Custom ML/NLP models
-
-Lightweight and beginner-friendly, this repo demonstrates the fundamentals of chatbot UI development.
-
----
-
-#  **Features**
-
-### ✔ Clean & Modern Chat UI
-
-Styled interface with user and bot message bubbles.
-
-### ✔ Real-Time Interaction
-
-Messages appear instantly with smooth UI updates.
-
-### ✔ Easy to Extend
-
-Replace dummy responses with any backend API.
-
-### ✔ Lightweight
-
-No frameworks — pure HTML, CSS, JS.
-
-### ✔ Deployed on Vercel
-
-Instant loading & global CDN support.
-
-
----
-
-#  **Folder Structure**
+# **Repository Folder Structure**
 
 ```
 Basic-Chatbot/
 │
-├── index.html        # Chat UI layout
-├── style.css         # Styling for chat interface
-└── script.js         # JS logic for message handling
+├── chatbot-backend/
+│   ├── main.py              # FastAPI app defining /chat endpoint
+│   ├── requirements.txt     # Python dependencies
+│   └── __pycache__/         
+│
+├── chatbot-frontend/
+│   ├── public/              # Static assets
+│   ├── src/                 # JS, CSS, image assets for the frontend
+│   ├── index.html           # Entry point for frontend
+│   ├── package.json
+│   └── package-lock.json
+│
+├── README.md                # Documentation
+└── .gitignore
 ```
 
 ---
 
-#  **How to Run Locally**
+# **How to Run the Project Locally**
 
-### **1. Clone the Repo**
+---
 
-```bash
-git clone https://github.com/JoshiDeepak08/Basic-Chatbot
-cd Basic-Chatbot
-```
+# **1️⃣ Backend (FastAPI)**
 
-### **2. Open the App**
-
-Just open the HTML file:
+### **Install dependencies**
 
 ```bash
-open index.html
+cd chatbot-backend
+pip install -r requirements.txt
 ```
 
-or drag it into your browser.
+### **Run the FastAPI server**
+
+```bash
+uvicorn main:app --reload
+```
+
+Backend will run on:
+
+```
+http://127.0.0.1:8000
+```
+
+### **Test the API**
+
+```bash
+curl -X POST "http://127.0.0.1:8000/chat" \
+    -H "Content-Type: application/json" \
+    -d '{"message": "hello"}'
+```
+
+---
+
+# **2️⃣ Frontend (Static + JS)**
+
+### **Start the frontend**
+
+If it's a simple static HTML project:
+
+```bash
+cd chatbot-frontend
+npm install
+npm run dev
+```
+
+Or simply open:
+
+```
+chatbot-frontend/index.html
+```
+
+### **Configure frontend API**
+
+Inside your JS file (e.g. `/src/script.js`):
+
+```js
+const API_URL = "http://127.0.0.1:8000/chat";
+```
 
 ---
 
 #  **Architecture & Design Decisions**
 
-### **1. Pure HTML/CSS/JS Approach**
+### **Why FastAPI Backend?**
 
-* No frameworks
-* Faster to load
+* Extremely lightweight
+* Easy to extend with ML/LLMs
+* Async support
+* Fast and deploy-ready
+
+### **Why Vanilla JS Frontend?**
+
+* Zero framework overhead
 * Beginner-friendly
+* Easy customization
+* Perfect for embedding into larger apps
 
-### **2. Simple Chat DOM Model**
+### **Why Two Separate Folders?**
 
-Messages are appended dynamically using JavaScript.
-
-### **3. Easy API Integration**
-
-Replace the dummy response logic with an fetch() call:
-
-```js
-fetch("/chat-api")
-```
-
-### **4. CSS-Only Responsive Layout**
-
-Ensures compatibility across screens.
+* Backend and frontend decoupled
+* Seamless future migration (React/Vue frontend, larger backend)
 
 ---
 
 #  **Approach**
 
-The goal was to create a **minimal chatbot interface** with:
+The goal was to create a **clean, minimal chatbot architecture** that:
 
-* Clean UI
-* Easy extensibility
-* Very low setup time
-* No build tools or dependency overhead
+✔ Separates backend logic from UI
+✔ Provides a predictable API (`/chat`)
+✔ Allows immediate replacement of the bot response with:
 
-This repo is ideal as a starting point for:
-
-* LLM chatbot
-* Customer support chat
-* Support ticket bot
-* Onboarding assistant
+* OpenAI / Groq / Gemini
+* LangChain RAG pipeline
+* Local ML models
+  ✔ Supports easy UI redesign or integration into a bigger app
+  ✔ Deployable with minimal configuration
 
 ---
 
@@ -148,31 +138,32 @@ This repo is ideal as a starting point for:
 
 ```mermaid
 sequenceDiagram
-    User->>UI: Types message
-    UI->>JS Logic: Append user message
-    JS Logic->>Bot Logic: Generate static/dummy reply
-    Bot Logic->>UI: Display bot message
-    Note over UI: API integration can replace dummy reply
+    User->>Frontend: Enter message in chat box
+    Frontend->>Backend: POST /chat { message }
+    Backend->>Logic: Process message (dummy reply for now)
+    Logic->>Backend: Return bot response
+    Backend->>Frontend: JSON response
+    Frontend->>User: Render bot message in UI
 ```
 
 ---
 
 #  **Challenges & Trade-Offs**
 
-### ⚠ Challenge: No backend
+### **1. Pure JS frontend limits UI complexity**
 
-➡ Only static logic possible unless extended manually.
+Trade-off for simplicity and zero setup.
 
-### ⚠ Challenge: No persistence
+### **2. Backend returns a static/dummy response**
 
-➡ Chat resets on page refresh.
+Trade-off for minimal starter template.
 
-### ⚖ Trade-Off:
+### **3. No database or session storage**
 
-Chose simplicity over complexity to make the UI:
+Chat resets on refresh → intentional for simplicity.
 
-* Easy to understand
-* Easy to customize
-* Easy to integrate with future AI systems
+### **4. CORS configuration required for deployment**
+
+Necessary because frontend and backend are hosted separately.
 
 ---
